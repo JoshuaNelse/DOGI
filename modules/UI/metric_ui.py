@@ -18,19 +18,23 @@ def get_whole_metrics_page():
     md('Data sourced from kaggle: https://www.kaggle.com/c/dog-breed-identification')
     md('The dataset has roughly 10,000 training images '
        '(having associated labels) and 10,000 test images (with no labels).')
-    with st.echo():
-        train_filenames = [f"data/train/{fname}" for fname in os.listdir('data/train')]
-        test_filenames = [f"data/test/{fname}" for fname in os.listdir('data/test')]
-        st.write((len(train_filenames), len(test_filenames)))
+
+    st.code('''
+train_filenames = [f"data/train/{fname}" for fname in os.listdir('data/train')]
+test_filenames = [f"data/test/{fname}" for fname in os.listdir('data/test')]
+st.write((len(train_filenames), len(test_filenames)))''')
+
+    md('`(10222, 10357)`')
 
     with st.echo():
         labels_csv = pd.read_csv('data/labels.csv')
         st.write(labels_csv[:5])
 
-    with st.echo():
-        # example of an image (random index 45)
-        st.image(train_filenames[45])
-
+    st.code('''
+# example of an image (random index 45)
+st.image(train_filenames[45])
+    ''')
+    st.image('resources/random_image_metric.png', use_column_width=True)
     md('''## Data features''')
     md('''There are 120 unique breeds (labels) and a reasonably even distribution amongst breeds.''')
 
